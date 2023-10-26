@@ -1,6 +1,7 @@
 
 
-import React from 'react';
+import PropTypes from "prop-types"
+import MovieCard from './MovieCard';
 
 
 function MovieList ({movies})  {
@@ -19,6 +20,12 @@ function MovieList ({movies})  {
       </div>
     </>
   )
+}
+
+MovieList.propTypes = {
+  movies: PropTypes.shape({
+    map: PropTypes.func
+  })
 }
   
   export default MovieList;
