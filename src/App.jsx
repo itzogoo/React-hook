@@ -74,24 +74,27 @@ const App = () => {
     );
     
     const handleSearch = (event) => {
-      event.PreventDefault()
-      setMoviesData(FilterMovies)
-    }
+      event.PreventDefault();
+      setMoviesData(filteredMovies);
+    };
+
+    console.log("all data", filteredMovies );
     
       return (
         <>
-        <div>
-          <form action="">
-            <input type="text"
-            placeholder="Search" 
-            value={searchText}
-            onChange={(event) => setSearchText(event.target.value)}
+        <div className=''>
+          <form>
+            <input 
+              type="text"
+              placeholder="Search..." 
+              value={searchText}
+              onChange={(event) => setSearchText(event.target.value)}
             />
             <button type="type" onClick={handleSearch}>Search</button>
           </form>
         </div>
-        <div>
-          {staticMovieData.map(({id, title, description, posterURL, rating}) => {
+        <div className='grid'>
+          {staticMovieData?.map(({id, title, description, posterURL, rating}) => {
             return (
               <MovieCard
               key={id}
