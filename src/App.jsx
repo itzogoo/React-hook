@@ -4,6 +4,9 @@
 import './App.css';
 import MovieCard from './Components/MovieCard';
 import { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import MovieDescription from "./Components/MovieDescription";
+import"./App.css"
 
 
 const App = () => {
@@ -12,49 +15,49 @@ const App = () => {
     {
       title: 'See',
       description: '2022',
-      posterURL: 'public/SEE.jpeg',
+      trailerURL: "https://www.youtube.com/embed/7Rg0y7NT1gU?si=kKmawixbwg7qvW5p" ,
       rating: 4.5,
     },
     {
       title: 'Legend of the seeker',
       description: '2017',
-      posterURL: 'public/LoS.jpeg',
+      trailerURL: "https://www.youtube.com/embed/96OrBX1epXM?si=RjRvVS9J4wpqR6MA" ,
       rating: 3.8,
     },
     {
       title: 'Merlin',
       description: '2016',
-      posterURL: 'public/MERLIN.jpeg',
+      trailerURL: "https://www.youtube.com/embed/01rxgwVmxx0?si=NUWo3Pscgj4Be83P",
       rating: 5.8,
     },
     {
       title: 'Night agent',
       description: '2021',
-      posterURL: 'public/Na.jpeg',
+      trailerURL: "https://www.youtube.com/embed/YDbnY9Obsfs?si=jGyVn1Wqen9cpwKN",
       rating: 3.3,
     },
     {
       title: 'Mass destruction',
       description: '2012',
-      posterURL: 'public/MD.jpeg',
+      trailerURL: "https://www.youtube.com/embed/w_t7xyxfMSg?si=qmdlMzTYDl6uzraq",
       rating: 3.1,
     },
     {
       title: 'Game of thrones',
       description: '2018',
-      posterURL: 'public/gOt.jpeg',
+      trailerURL: "https://www.youtube.com/embed/KPLWWIOCOOQ?si=bHoOFvuQk5nABL7v",
       rating: 3.9,
     },
     {
       title: 'Spider man',
       description: '2019',
-      posterURL: 'public/SPIDER MAN.jpeg',
+      trailerURL: "https://www.youtube.com/embed/g4Hbz2jLxvQ?si=ast8XXa-ktaK8TS5" ,
       rating: 4.8,
     },
     {
       title: 'Top boy',
       description: '2023',
-      posterURL: 'public/TP.jpeg',
+      trailerURL: "https://www.youtube.com/embed/xrqvO46QR2E?si=F7pctXU8AgVgopxg",
       rating: 4.5,
     },
 
@@ -68,41 +71,61 @@ const App = () => {
         movie.title.toLowerCase().includes(searchText.toLowerCase())
       )
     );
-    
-    // // const handleSearch = (event) => {
-    // //   event.PreventDefault();
-    // //   setMoviesData(filteredMovies);
-    // };
-    
-      return (
-        <>
-        <div className='searchForm'>
-          <form>
-            <input 
-              type="text"
-              placeholder="Search..." 
-              value={searchText}
-              onChange={(event) => setSearchText(event.target.value)}
+    const handleHome = () => {
+      setSearchText("")
+    }
+
+    return (
+      
+      <div>
+        <Router path="/movie/:title">
+          <MovieDescription
+          title={filteredMovies.title}
+
+          description={filteredMovies.description}
+            rating={filteredMovies.rating}
+            trailerURL={filteredMovies.trailerURL}
             />
-            {/* <button type="type" onClick={handleSearch}>Search</button> */}
-          </form>
-        </div>
-        <div className='grid'>
-          {filteredMovies?.map(({id, title, description, posterURL, rating}) => {
-            return (
-              <MovieCard
-              key={id}
-              title={title}
-              description={description}
-              posterURL={posterURL}
-              rating={rating}
+        </Router>
+
+       
+        <Router path= "/">
+          <div>
+            <button onClick={handleHome}>Back to Home</button>
+          </div>
+          <div className='searchForm'>
+            <form>
+              <input 
+                type="text"
+                placeholder="Search..." 
+                value={searchText}
+                onChange={(event) => setSearchText(event.target.value)}
               />
-            )
-          })}
-        </div>
-        </>
-      );
+            </form>
+          </div>
+          <div className='grid'>
+            {filteredMovies?.map(({id, title, description, trailerURL, rating}) => {
+              return (
+                <MovieCard
+                key={id}
+                title={title}
+                description={description}
+                trailerURL={trailerURL}
+                rating={rating}
+                ></MovieCard>
+
+              )
+
+            })}
+
+          </div>
+        </Router>      
+      </div>
+    )
+
   }
+      
+  
 
 
 export default App;
